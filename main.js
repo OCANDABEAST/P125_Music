@@ -3,9 +3,17 @@ leftWristX = 0;
 leftWristY = 0;
 rightWristX = 0;
 rightWristY = 0;
+
+song1_status = "";
+song2_status = "";
+
+scoreRightWrist = 0;
+scoreLeftWrist = 0;
+
 function preload()
 {
-song = loadSound("music.mp3");
+song1 = loadSound("Farishton.mp3");
+song2 = loadSound("videoplayback.m4a");
 }
 
 
@@ -27,7 +35,28 @@ poseNet.on('pose', gotPoses);
 
 function draw() {
 image(video, 0, 0, 600, 500);
+
+fill("#53bced");
+stroke("#53bced");
+
+if(scoreRightWrist > 0.2)
+{circle(rightWristX, rightWristY, 20);
+song2.stop()
+if(song1_status == false)
+{
+song1.play();
+document.getElementById("song").innerHTML = "Playing - Naat";
 }
+}
+if(scoreLeftWrist > 0.2)
+{circle(leftWristX, leftWristY, 20);
+song1.stop()
+if(song2_status == false)
+{
+song2.play();
+document.getElementById("song").innerHTML = "Playing - Farishte";
+}
+}}
 
 function play()
 {
@@ -40,6 +69,8 @@ function gotPoses(results)
 {
 if(results.lenght > 0)
 {
+scoreRightWrist = results[0].pose.keypoints[10].score;
+scoreLeftWrist = results[0].pose.keypoints[9].score;
 console.log(results);
 leftWristX = results[0].pose.leftWrist.x;
 leftWristY = results[0].pose.leftWrist.y;
