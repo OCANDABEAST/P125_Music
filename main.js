@@ -60,9 +60,10 @@ document.getElementById("song").innerHTML = "Playing - Farishte";
 
 function play()
 {
-song.play();
-song.setVolume(1);
-song.rate(1);
+song1.setVolume(1);
+song1.rate(1);
+song2.setVolume(1);
+song2.rate(1);
 }
 
 function gotPoses(results)
